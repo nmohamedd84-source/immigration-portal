@@ -38,10 +38,11 @@ const upload = multer({
     storage: storage,
     limits: { fileSize: 50 * 1024 * 1024 } // Heavy 50MB ceiling per individual asset
 });
-
-// DATABASE ENGINE CONNECTION
-const fallbackURI = "mongodb+srv://testuser:testpass@cluster0.mongodb.net/immigration?retryWrites=true&w=majority";
-const MONGO_URI = process.env.MONGO_URI || fallbackURI;
+// ==========================================
+// 3. RE-ENGINEERED DATABASE CONNECTOR
+// ==========================================
+const DIRECT_PORT_URI = "mongodb://usrtest:canada2026secure@cluster0-shard-00-00.q9tcm7y.mongodb.net:27017,cluster0-shard-00-01.q9tcm7y.mongodb.net:27017,cluster0-shard-00-02.q9tcm7y.mongodb.net:27017/immigration?ssl=true&replicaSet=atlas-13w7g2-shard-0&authSource=admin&retryWrites=true&w=majority";
+const MONGO_URI = (process.env.MONGO_URI || DIRECT_PORT_URI).trim();
 
 let bucket;
 mongoose.connect(MONGO_URI)
